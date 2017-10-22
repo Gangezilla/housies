@@ -1,24 +1,24 @@
 const pg = require('pg');
 const handleError = require('../helpers/handle-error');
 
-const retrieveUser = username => ({
+const retrieveUser = userID => ({
   name: 'Retrieve User',
   text: `SELECT * FROM Members
-        WHERE LOWER(username) = LOWER($1);`,
-  values: [username],
+        WHERE id = $1;`,
+  values: [userID],
 });
 
-const signUpNewUser = ({ username, name, email, id }) => ({
+const signUpNewUser = ({ id, displayName }) => ({
   name: 'sign up new user',
-  text: `INSERT INTO Members(username, name, email, id)
-    values($1, $2, $3, $4)`,
-  values: [username, name, email, id],
+  text: `INSERT INTO Members(id, displayName)
+    values($1, $2)`,
+  values: [id, displayName],
 });
 
-const retrieveUserProfile = (username, success) => {
+const retrieveUserProfile = (userId, success) => {
   const client = new pg.Client(process.env.DATABASE_URL);
   client.connect();
-  client.query(retrieveUser(username), (err, res) => {
+  client.query(retrieveUser(userId), (err, res) => {
     if (err) {
       client.end();
       handleError(err.stack);

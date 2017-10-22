@@ -15,15 +15,13 @@ module.exports = (passport) => {
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: 'http://localhost:3000/auth/facebook/callback', // TODO CHANGE ME
   }, (accessToken, refreshToken, profile, done) => {
-    retrieveUserProfile(profile.username, (responseProfile) => {
-      if (responseProfile.length > 1) {
+    retrieveUserProfile(profile.id, (responseProfile) => {
+      if (responseProfile.length >= 1) {
         return done(null, responseProfile[0]);
       } else if (responseProfile.length < 1) {
         const newUser = {
-          username: profile.username,
           id: profile.id,
-          name: profile.displayName,
-          email: profile.emails[0].value,
+          displayName: profile.displayName,
         };
         signup(newUser, () => {
           return done(null, newUser);

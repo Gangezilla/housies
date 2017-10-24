@@ -29,7 +29,7 @@ router.get('/auth/facebook/callback',
 // individual page for a house.
 // router.get('/home', getHome);
 // // user searches for a house
-// router.post('/home/search', searchForHome);
+router.post('/home/search', searchForHome);
 // // route to post a new review.
 // router.post('/home/review', postReview);
 

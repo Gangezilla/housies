@@ -15,7 +15,6 @@ module.exports = (passport) => {
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: `${process.env.WEBSITE_URL}/auth/facebook/callback`,
   }, (accessToken, refreshToken, profile, done) => {
-    console.log('FACEBOOK YEAH');
     retrieveUserProfile(profile.id, (responseProfile) => {
       if (responseProfile.length >= 1) {
         return done(null, responseProfile[0]);

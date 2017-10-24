@@ -1,26 +1,18 @@
-// const getFeed = () => {
+const { checkIfHomeHasReviews } = require('../models/home');
 
-// };
-
-// const getHomesInSuburb = () => {
-
-// };
-
-const getAllReviews = id => ({
-  name: 'Get all reviews of a home.',
-  text: '',
-  values: [id],
-});
-
-
-const postNewReview = () => ({
-  name: 'Post new review of house',
-  text: '',
-  values: [],
-});
-
-const getHome = () => {
-
+const searchForHome = (req, res) => {
+  // so we have an id, we poll our database, and return reviews if it exists, otherwise nothing.
+  checkIfHomeHasReviews(req.body.id, (home) => {
+    if (home.rows > 0) {
+      // we know someone has reviewed the home, so we can now grab the reviews.
+    } else {
+      res.send({
+        reviewCount: 0,
+        reviews: [],
+      });
+      // nobody has reviewed, invite user to be the first.
+    }
+  });
 };
 
 const postReview = () => {
@@ -28,7 +20,7 @@ const postReview = () => {
 };
 
 module.exports = {
-  getHome,
+  searchForHome,
   postReview,
   // getFeed,
   // getHomesInSuburb,
@@ -36,3 +28,11 @@ module.exports = {
 
 // getFeed will show a feed of houses in an area or recently posted reviews.
 // getHomesInSuburb will do a map view and then plot houses on it. 
+
+// const getFeed = () => {
+
+// };
+
+// const getHomesInSuburb = () => {
+
+// };

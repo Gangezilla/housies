@@ -12,7 +12,7 @@ router.get('/ping', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  res.send('home');
+  // res.send('home');
 });
 
 router.get('/auth/facebook', passport.authenticate('facebook'));

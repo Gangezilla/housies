@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/ping', (req, res) => {
   logger.debug('Server is responding.');
-  res.send('pong');
+  console.log(req.user);
+  res.send('pong', req.user);
 });
 
 router.get('/', (req, res) => {

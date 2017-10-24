@@ -13,7 +13,7 @@ module.exports = (passport) => {
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback', // TODO CHANGE ME
+    callbackURL: `${process.env.WEBSITE_URL}/auth/facebook/callback`,
   }, (accessToken, refreshToken, profile, done) => {
     retrieveUserProfile(profile.id, (responseProfile) => {
       if (responseProfile.length >= 1) {

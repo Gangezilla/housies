@@ -13,6 +13,11 @@ require('dotenv-safe').load();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('/build'));
+}
+
 app.use(session({
   secret: process.env.PASSPORT_SECRET,
   resave: true,

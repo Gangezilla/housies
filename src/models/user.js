@@ -1,4 +1,5 @@
 const pg = require('pg');
+const { Pool } = require('pg');
 const handleError = require('../helpers/handle-error');
 
 const retrieveUser = userID => ({

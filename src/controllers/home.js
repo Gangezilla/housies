@@ -1,8 +1,10 @@
-const { checkIfHomeHasReviews } = require('../models/home');
+const { checkIfHomeHasReviews, postNewReview } = require('../models/home');
+const shortid = require('shortid');
 
 const searchForHome = (req, res) => {
   // so we have an id, we poll our database, and return reviews if it exists, otherwise nothing.
   checkIfHomeHasReviews(req.body.id, (home) => {
+
     if (home.rows > 0) {
       // we know someone has reviewed the home, so we can now grab the reviews.
     } else {
@@ -15,13 +17,41 @@ const searchForHome = (req, res) => {
   });
 };
 
-const postReview = () => {
+const handleReviewSubmission = (req, res) => {
+  if (!req.user) {
+    res.status(401).send({
+      error: 'User is not logged in',
+    });
+  }
+  const { rating, title, description, homeId } = req.body;
+  // user is presented with a form. 
+  // rating, title, description. also have address id.
+  if (rating || title || description) {
+    const reviewId = shortid.generate();
+    const review = {
+      reviewId,
+      rating,
+      title,
+      description,
+      homeId,
+      displayName: req.user.displayName,
+    };
+    postNewReview(review, () => {
+      res.status(200).send({
+        success: true,
+      });
+    });
+    // check that we have SOMETHING to post in the review.
+  }
+};
+
+const retrieveHomeReviews = (req, res) => {
 
 };
 
 module.exports = {
   searchForHome,
-  postReview,
+  handleReviewSubmission,
   // getFeed,
   // getHomesInSuburb,
 };

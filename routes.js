@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('./config/log');
 const passport = require('passport');
 const { getUserProfile } = require('./src/controllers/user');
-const { getHome, postReview, searchForHome } = require('./src/controllers/home');
+const { getHome, handleReviewSubmission, searchForHome } = require('./src/controllers/home');
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ router.get('/auth/facebook/callback',
 // // user searches for a house
 router.post('/home/search', searchForHome);
 // // route to post a new review.
-// router.post('/home/review', postReview);
+router.post('/home/review', handleReviewSubmission);
 
 // router for main home page, has feed of most recent reviews.
 // router.get('/feed', getFeed);

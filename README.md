@@ -35,6 +35,6 @@ CREATE TABLE IF NOT EXISTS Reviews (
   homeId text,
   title text,
   description text,
-  rating text
-  authorId int
+  rating int
+  displayName text
 );

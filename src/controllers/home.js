@@ -1,4 +1,4 @@
-const { checkIfHomeHasReviews, postNewReview } = require('../models/home');
+const { checkIfHomeHasReviews, postNewReview, getReviews } = require('../models/home');
 const shortid = require('shortid');
 
 const searchForHome = (req, res) => {
@@ -6,13 +6,17 @@ const searchForHome = (req, res) => {
   checkIfHomeHasReviews(req.body.id, (home) => {
 
     if (home.rows > 0) {
-      // we know someone has reviewed the home, so we can now grab the reviews.
+      getReviews(req.body.id, (reviews) => {
+        res.status(200).send({
+          reviewCount: reviews.length,
+          reviews,
+        });
+      });
     } else {
-      res.send({
+      res.status(204).send({
         reviewCount: 0,
         reviews: [],
       });
-      // nobody has reviewed, invite user to be the first.
     }
   });
 };

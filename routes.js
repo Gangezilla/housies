@@ -38,7 +38,7 @@ router.get('/auth/success/', (req, res) => {
 });
 
 router.get('/auth/failure/', (req, res) => {
-  logger.info(' auth failure', req.user);
+  logger.info('auth failure', req.user);
   res.status(401).send();
 });
 

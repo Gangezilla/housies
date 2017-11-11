@@ -1,25 +1,31 @@
 # housies
 
-### To fix
-
-[ ] - session doesnt mantain for some reason.
-[x] - need to replace github with facebook, shouldnt be too hard.
-[x] - make database for homes. DB - Homes
-[x] - make database for reviews. DB - Reviews
-[] - relational on id, so you can find all reviews for a house.
-
 ### DONE
 - User can log in to their facebook account
 - user can select their house, from a google address drop down box and add a review.
+- if there are no reviews, they are prompted to add one.
 
 ### To Do
-- user can select a house from a drop down google box and see all reviews. if there are no reviews, they are prompted to add one.
+[x] user can select a house from a drop down google box
+[ ] and see all reviews.
+[ ] We'll handle retrieving reviews on the front end.
+[ ] Error handling.
+[ ] Change client to pool on all db calls.
+[ ] geolocation influenced address selection.
+[ ] Figuring out what styling looks like lel.
+[ ] STYLING 
+[ ] Figuring out why FB doesn't work on live.
+[ ] See all recent reviews maybe? (V2 possibly)
+[ ] Try to figure out how to convert your DB stuff into promises, but its not compulsory. Just messy atm.
+[x] Handle returning reviews if a house has reviews.
+[ ] Update reviews to replace displayName with memberId
+[ ] You can only post a review if you're logged in.
 
 MVP V1:
 - Basic. User can search for a home, see reviews for that home, post a review.
 - Styled.
 
-V2: See recent reviews/feed. Map maybe... 
+V2: See recent reviews/feed. Map maybe... Photos of property.
 
 
 DB SCHEMA: 

@@ -9,13 +9,19 @@ const checkIfHomeExists = homeId => ({
 });
 
 const newReview = (reviewId, rating, title, description, homeId, displayName, tips) => ({
-  name: 'Post new review of house',
+  name: 'Post new review of home',
   text: `
   INSERT INTO Reviews
   (reviewId, rating, title, description, homeId, displayName, tips)
   VALUES ($1, $2, $3, $4, $5, $6, $7)
   `,
   values: [reviewId, rating, title, description, homeId, displayName, tips],
+});
+
+const getAllReviews = homeId => ({
+  name: 'Get all reviews of home',
+  text: 'SELECT * FROM Reviews WHERE homeid = $1;',
+  values: [homeId],
 });
 
 const checkIfHomeHasReviews = (homeId, success) => {
@@ -47,9 +53,16 @@ const postNewReview = (review, success) => {
   });
 };
 
+const getReviews = (homeId, success) => {
+  const client = new pg.Client(process.env.DATABASE_URL);
+  client.connect();
+  client.query(getAllReviews(homeId));
+};
+
 module.exports = {
   checkIfHomeHasReviews,
   postNewReview,
+  getReviews,
 };
 
 // const client = new pg.Client(process.env.DATABASE_URL);

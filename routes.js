@@ -7,16 +7,16 @@ const router = express.Router();
 
 router.get('/ping', (req, res) => {
   logger.debug('Server is responding.');
-  console.log(req.user);
+  logger.info(req.user);
   res.send('pong');
 });
 
 router.get('/auth/check/', (req, res) => {
-  console.log('user', req.user);
+  logger.info('user', req.user);
   if (req.user) {
-    res.send(200);
+    res.status(200).send(req.user);
   } else {
-    res.send(401);
+    res.sendStatus(204);
   }
 });
 
@@ -33,20 +33,12 @@ router.get('/auth/facebook/callback',
 
 router.get('/auth/success/', (req, res) => {
   res.status(200);
-  console.log(req.user);
+  logger.info(' auth scuess', req.user);
   res.send(req.user);
 });
 
 router.get('/auth/failure/', (req, res) => {
   res.status(401).send();
-});
-
-router.get('/auth/check/', (req, res) => {
-  if (req.user) {
-    res.status(200).send(req.user);
-  } else {
-    res.status(401).send();
-  }
 });
 
 // individual page for a house.

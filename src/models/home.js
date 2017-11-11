@@ -8,14 +8,14 @@ const checkIfHomeExists = homeId => ({
   values: [homeId],
 });
 
-const newReview = (reviewId, rating, title, description, homeId, displayName) => ({
+const newReview = (reviewId, rating, title, description, homeId, displayName, tips) => ({
   name: 'Post new review of house',
   text: `
   INSERT INTO Reviews
-  (reviewId, rating, title, description, homeId, displayName)
-  VALUES ($1, $2, $3, $4, $5, $6)
+  (reviewId, rating, title, description, homeId, displayName, tips)
+  VALUES ($1, $2, $3, $4, $5, $6, $7)
   `,
-  values: [reviewId, rating, title, description, homeId, displayName],
+  values: [reviewId, rating, title, description, homeId, displayName, tips],
 });
 
 const checkIfHomeHasReviews = (homeId, success) => {
@@ -49,6 +49,7 @@ const postNewReview = (review, success) => {
 
 module.exports = {
   checkIfHomeHasReviews,
+  postNewReview,
 };
 
 // const client = new pg.Client(process.env.DATABASE_URL);

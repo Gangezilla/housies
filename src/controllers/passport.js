@@ -14,6 +14,7 @@ module.exports = (passport) => {
     clientID: process.env.FACEBOOK_CLIENT_ID,
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: `${process.env.WEBSITE_URL}/auth/facebook/callback`,
+    profileFields: ['id', 'emails', 'locale', 'name', 'picture'],
   }, (accessToken, refreshToken, profile, done) => {
     retrieveUserProfile(profile.id, (responseProfile) => {
       if (responseProfile.length >= 1) {
@@ -21,7 +22,11 @@ module.exports = (passport) => {
       } else if (responseProfile.length < 1) {
         const newUser = {
           id: profile.id,
-          displayName: profile.displayName,
+          email: profile.email,
+          locale: profile._json.locale, // eslint-disable-line
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          profilePic: profile.photos[0].value,
         };
         signup(newUser, () => {
           return done(null, newUser);

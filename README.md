@@ -10,17 +10,27 @@
 
 ### DONE
 - User can log in to their facebook account
+- user can select their house, from a google address drop down box and add a review.
 
 ### To Do
-- user can select their house, from a google address drop down box and add a review.
-- user can select a house from a drop down google box and see all reviews. if there are no reviews, they are prompted to add one. 
+- user can select a house from a drop down google box and see all reviews. if there are no reviews, they are prompted to add one.
+
+MVP V1:
+- Basic. User can search for a home, see reviews for that home, post a review.
+- Styled.
+
+V2: See recent reviews/feed. Map maybe... 
 
 
 DB SCHEMA: 
 
 CREATE TABLE IF NOT EXISTS Members (
-  displayName text,
-  id text
+  id text,
+  email text,
+  locale text,
+  firstName text,
+  lastName text
+  profilePic text
 );
 
 CREATE TABLE IF NOT EXISTS Homes (
@@ -31,10 +41,11 @@ CREATE TABLE IF NOT EXISTS Homes (
 )
 
 CREATE TABLE IF NOT EXISTS Reviews (
-  reviewId int,
+  reviewId text,
   homeId text,
   title text,
   description text,
-  rating int
+  rating int,
+  tips text
   displayName text
 );

@@ -1,19 +1,23 @@
 const express = require('express');
 const logger = require('./config/log');
 const passport = require('passport');
-const { getUserProfile } = require('./src/controllers/user');
 const { getHome, handleReviewSubmission, searchForHome } = require('./src/controllers/home');
 
 const router = express.Router();
 
 router.get('/ping', (req, res) => {
   logger.debug('Server is responding.');
-  // console.log(req.user);
-  // res.send('pong', req.user);
+  console.log(req.user);
+  res.send('pong');
 });
 
-router.get('/', (req, res) => {
-  // res.send('home');
+router.get('/auth/check/', (req, res) => {
+  console.log('user', req.user);
+  if (req.user) {
+    res.send(200);
+  } else {
+    res.send(401);
+  }
 });
 
 router.get('/auth/facebook/', passport.authenticate('facebook'));
@@ -21,11 +25,29 @@ router.get('/auth/facebook/', passport.authenticate('facebook'));
 router.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
     session: true,
-    failureRedirect: '/login',
-    successRedirect: '/',
+    failureRedirect: '/auth/failure',
+    successRedirect: '/auth/success',
+    scope: ['email'],
   }),
 );
 
+router.get('/auth/success/', (req, res) => {
+  res.status(200);
+  console.log(req.user);
+  res.send(req.user);
+});
+
+router.get('/auth/failure/', (req, res) => {
+  res.status(401).send();
+});
+
+router.get('/auth/check/', (req, res) => {
+  if (req.user) {
+    res.status(200).send(req.user);
+  } else {
+    res.status(401).send();
+  }
+});
 
 // individual page for a house.
 // router.get('/home', getHome);

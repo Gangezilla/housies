@@ -9,11 +9,11 @@ const retrieveUser = userID => ({
   values: [userID],
 });
 
-const signUpNewUser = ({ id, displayName }) => ({
+const signUpNewUser = ({ id, email, locale, firstName, lastName, profilePic }) => ({
   name: 'sign up new user',
-  text: `INSERT INTO Members(id, displayName)
-    values($1, $2)`,
-  values: [id, displayName],
+  text: `INSERT INTO Members(id, email, locale, firstName, lastName, profilePic)
+    values($1, $2, $3, $4, $5, $6)`,
+  values: [id, email, locale, firstName, lastName, profilePic],
 });
 
 const retrieveUserProfile = (userId, success) => {
@@ -35,6 +35,7 @@ const signup = (profile, success) => {
   client.connect();
   client.query(signUpNewUser(profile), (err, res) => {
     if (err) {
+      console.log(err);
       client.end();
       handleError(err.stack);
     } else {

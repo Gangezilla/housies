@@ -18,30 +18,28 @@ const searchForHome = (req, res) => {
 };
 
 const handleReviewSubmission = (req, res) => {
-  if (!req.user) {
-    res.status(401).send({
-      error: 'User is not logged in',
-    });
-  }
-  const { rating, title, description, homeId } = req.body;
-  // user is presented with a form. 
-  // rating, title, description. also have address id.
-  if (rating || title || description) {
-    const reviewId = shortid.generate();
-    const review = {
-      reviewId,
-      rating,
-      title,
-      description,
-      homeId,
-      displayName: req.user.displayName,
-    };
-    postNewReview(review, () => {
-      res.status(200).send({
-        success: true,
+  if (!req.user) { // eslint-disable-line no-negated-condition
+    res.status(401).send();
+  } else {
+    const { rating, title, description, homeId, tips } = req.body;
+    if (rating || title || description) {
+      const reviewId = shortid.generate();
+      const review = {
+        reviewId,
+        rating,
+        title,
+        description,
+        homeId,
+        tips,
+        displayName: req.user.displayName,
+      };
+      postNewReview(review, () => {
+        res.status(200).send({
+          success: true,
+        });
       });
-    });
     // check that we have SOMETHING to post in the review.
+    }
   }
 };
 

@@ -32,12 +32,13 @@ router.get('/auth/facebook/callback',
 );
 
 router.get('/auth/success/', (req, res) => {
-  res.status(200);
   logger.info(' auth scuess', req.user);
+  res.status(200);
   res.send(req.user);
 });
 
 router.get('/auth/failure/', (req, res) => {
+  logger.info(' auth failure', req.user);
   res.status(401).send();
 });
 

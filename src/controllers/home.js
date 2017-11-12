@@ -4,7 +4,7 @@ const shortid = require('shortid');
 const searchForHome = (req, res) => {
   // so we have an id, we poll our database, and return reviews if it exists, otherwise nothing.
   checkIfHomeHasReviews(req.body.id, (home) => {
-
+    console.log('res', home);
     if (home.rows > 0) {
       getReviews(req.body.id, (reviews) => {
         res.status(200).send({
@@ -13,7 +13,7 @@ const searchForHome = (req, res) => {
         });
       });
     } else {
-      res.status(204).send({
+      res.send({
         reviewCount: 0,
         reviews: [],
       });

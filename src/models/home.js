@@ -25,6 +25,7 @@ const getAllReviews = homeId => ({
 });
 
 const checkIfHomeHasReviews = (homeId, success) => {
+  console.log('checking...');
   const client = new pg.Client(process.env.DATABASE_URL);
   client.connect();
   client.query(checkIfHomeExists(homeId), (err, res) => {
@@ -36,6 +37,11 @@ const checkIfHomeHasReviews = (homeId, success) => {
       success(res.rows);
     }
   });
+  // const pool = new Pool();
+
+  // pool.query(checkIfHomeExists(homeId))
+  //   .then(res => success(res.rows))
+  //   .catch(e => handleError((e.stack)));
 };
 
 const postNewReview = (review, success) => {

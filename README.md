@@ -7,19 +7,27 @@
 
 ### To Do
 [x] user can select a house from a drop down google box
-[ ] and see all reviews.
-[ ] We'll handle retrieving reviews on the front end.
-[ ] Error handling.
+[x] and see all reviews.
+[x] We'll handle retrieving reviews on the front end.
+[ ] Error handling on server.
+[x] Error handling on FE
 [ ] Change client to pool on all db calls.
-[ ] geolocation influenced address selection.
+[x] geolocation influenced address selection.
 [ ] Figuring out what styling looks like lel.
 [ ] STYLING 
 [ ] Figuring out why FB doesn't work on live.
 [ ] See all recent reviews maybe? (V2 possibly)
 [ ] Try to figure out how to convert your DB stuff into promises, but its not compulsory. Just messy atm.
 [x] Handle returning reviews if a house has reviews.
-[ ] Update reviews to replace displayName with memberId
-[ ] You can only post a review if you're logged in.
+[x] Update reviews to replace displayName with memberId
+[x] You can only post a review if you're logged in.
+[ ] Make somewhere with more info on the project, an about page? or something like that.
+[x] checking if user is logged in should be in app.js, not elsewhere.
+[x] Reviews
+[x] Get location based on users current location.
+[x] Probably PropTypes in FE. it's getting a bit out of hand on some components. will be easy, can just take them from what we're passing in.
+[ ] Loader on searching for address
+[ ] say you want to write a review, then log into fb, the alertish box asking if you want to is still there. 
 
 MVP V1:
 - Basic. User can search for a home, see reviews for that home, post a review.
@@ -53,5 +61,5 @@ CREATE TABLE IF NOT EXISTS Reviews (
   description text,
   rating int,
   tips text
-  displayName text
+  memberId text
 );

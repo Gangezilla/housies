@@ -3,8 +3,7 @@ const shortid = require('shortid');
 
 const searchForHome = (req, res) => {
   // so we have an id, we poll our database, and return reviews if it exists, otherwise nothing.
-  checkIfHomeHasReviews(req.body.id, (home) => {
-    console.log('res', home);
+  checkIfHomeHasReviews(req.body, (home) => {
     if (home.rows > 0) {
       getReviews(req.body.id, (reviews) => {
         res.status(200).send({
@@ -25,7 +24,8 @@ const handleReviewSubmission = (req, res) => {
   if (!req.user) { // eslint-disable-line no-negated-condition
     res.status(401).send();
   } else {
-    const { rating, title, description, homeId, tips } = req.body;
+    const { rating, title, description, homeId, tips } = req.body.values;
+    const home = req.body.home;
     if (rating || title || description) {
       const reviewId = shortid.generate();
       const review = {
@@ -35,14 +35,13 @@ const handleReviewSubmission = (req, res) => {
         description,
         homeId,
         tips,
-        displayName: req.user.displayName,
+        memberId: req.user.id,
       };
-      postNewReview(review, () => {
-        res.status(200).send({
-          success: true,
-        });
+      postNewReview(review, home, () => {
+        res.sendStatus(200);
       });
-    // check that we have SOMETHING to post in the review.
+    } else {
+      res.sendStatus(500);
     }
   }
 };

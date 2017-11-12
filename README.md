@@ -9,6 +9,7 @@
 [x] user can select a house from a drop down google box
 [x] and see all reviews.
 [x] We'll handle retrieving reviews on the front end.
+[ ] Make sure that receiving reviews actually works...
 [ ] Error handling on server.
 [x] Error handling on FE
 [ ] Change client to pool on all db calls.
@@ -26,7 +27,11 @@
 [x] Reviews
 [x] Get location based on users current location.
 [x] Probably PropTypes in FE. it's getting a bit out of hand on some components. will be easy, can just take them from what we're passing in.
-[ ] Loader on searching for address
+[x] Loader on searching for address
+[ ] in postNewReview models/home, you need to do an additional query to Homes to say it exists, otherwise we'll never get any reviews down.
+[ ] if we have reviews for a house, how do you write another one?
+
+### BUGS
 [ ] say you want to write a review, then log into fb, the alertish box asking if you want to is still there. 
 
 MVP V1:
@@ -48,10 +53,11 @@ CREATE TABLE IF NOT EXISTS Members (
 );
 
 CREATE TABLE IF NOT EXISTS Homes (
-  fullAddress text,
+  displayAddress text,
   homeId text,
   hasReview bool,
-  suburb text
+  latitude float,
+  longitude float,
 )
 
 CREATE TABLE IF NOT EXISTS Reviews (

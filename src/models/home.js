@@ -4,18 +4,18 @@ const handleError = require('../helpers/handle-error');
 
 const checkIfHomeExists = homeId => ({
   name: 'Check if home exists',
-  text: 'SELECT * FROM Homes WHERE homeid = $1',
+  text: 'SELECT * FROM Homes WHERE homeid = $1;',
   values: [homeId],
 });
 
-const newReview = (reviewId, rating, title, description, homeId, displayName, tips) => ({
+const newReview = (reviewId, rating, title, description, homeId, memberId, tips) => ({
   name: 'Post new review of home',
   text: `
   INSERT INTO Reviews
-  (reviewId, rating, title, description, homeId, displayName, tips)
-  VALUES ($1, $2, $3, $4, $5, $6, $7)
+  (reviewId, rating, title, description, homeId, memberId, tips)
+  VALUES ($1, $2, $3, $4, $5, $6, $7);
   `,
-  values: [reviewId, rating, title, description, homeId, displayName, tips],
+  values: [reviewId, rating, title, description, homeId, memberId, tips],
 });
 
 const getAllReviews = homeId => ({
@@ -24,11 +24,20 @@ const getAllReviews = homeId => ({
   values: [homeId],
 });
 
-const checkIfHomeHasReviews = (homeId, success) => {
-  console.log('checking...');
+const newHome = (displayAddress, homeId, latitude, longitude) => ({
+  name: 'Update Home DB with a new home when the first review is posted',
+  text: `
+    INSERT INTO Homes
+    (displayaddress, homeid, latitude, longitude, hasreview)
+    VALUES ($1, $2, $3, $4, true);
+  `,
+  values: [displayAddress, homeId, latitude, longitude],
+});
+
+const checkIfHomeHasReviews = (home, success) => {
   const client = new pg.Client(process.env.DATABASE_URL);
   client.connect();
-  client.query(checkIfHomeExists(homeId), (err, res) => {
+  client.query(checkIfHomeExists(home.id), (err, res) => {
     if (err) {
       client.end();
       handleError(err.stack);
@@ -44,15 +53,28 @@ const checkIfHomeHasReviews = (homeId, success) => {
   //   .catch(e => handleError((e.stack)));
 };
 
-const postNewReview = (review, success) => {
-  const { reviewId, rating, title, description, homeId, displayName } = review;
+const postNewReview = (review, home, success) => {
+  const { reviewId, rating, title, description, homeId, memberId } = review;
   const client = new pg.Client(process.env.DATABASE_URL);
   client.connect();
-  client.query(newReview(reviewId, rating, title, description, homeId, displayName), (err, res) => {
+  client.query(newReview(reviewId, rating, title, description, homeId, memberId), (err, res) => {
     if (err) {
       client.end();
       handleError(err.stack);
     } else {
+      client.query(newHome(
+        home.displayAddress,
+        home.id,
+        home.latLng.lat,
+        home.latLng.lng,
+      ), (error, resp) => {
+        if (error) {
+          console.log('fucked', error.stack);
+          handleError(error.stack);
+        } else {
+          console.log(' successsss', resp);
+        }
+      });
       client.end();
       success(res.rows);
     }
@@ -62,7 +84,15 @@ const postNewReview = (review, success) => {
 const getReviews = (homeId, success) => {
   const client = new pg.Client(process.env.DATABASE_URL);
   client.connect();
-  client.query(getAllReviews(homeId));
+  client.query(getAllReviews(homeId), (err, res) => {
+    if (err) {
+      client.end();
+      handleError(err.stack);
+    } else {
+      client.end();
+      success(res.rows);
+    }
+  });
 };
 
 module.exports = {

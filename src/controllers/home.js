@@ -47,10 +47,6 @@ const handleReviewSubmission = (req, res) => {
   }
 };
 
-const retrieveHomeReviews = (req, res) => {
-
-};
-
 module.exports = {
   searchForHome,
   handleReviewSubmission,

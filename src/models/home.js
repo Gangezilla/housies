@@ -42,6 +42,7 @@ const checkIfHomeHasReviews = (home, success) => {
       client.end();
       handleError(err.stack);
     } else {
+      // console.log('response', res);
       client.end();
       success(res.rows);
     }
@@ -54,10 +55,11 @@ const checkIfHomeHasReviews = (home, success) => {
 };
 
 const postNewReview = (review, home, success) => {
-  const { reviewId, rating, title, description, homeId, memberId } = review;
+  const { reviewId, rating, title, description, memberId, tips } = review;
+  const homeId = home.id;
   const client = new pg.Client(process.env.DATABASE_URL);
   client.connect();
-  client.query(newReview(reviewId, rating, title, description, homeId, memberId), (err, res) => {
+  client.query(newReview(reviewId, rating, title, description, homeId, memberId, tips), (err, res) => {
     if (err) {
       client.end();
       handleError(err.stack);
@@ -67,15 +69,14 @@ const postNewReview = (review, home, success) => {
         home.id,
         home.latLng.lat,
         home.latLng.lng,
-      ), (error, resp) => {
+      ), (error) => {
         if (error) {
-          console.log('fucked', error.stack);
+          client.end();
           handleError(error.stack);
         } else {
-          console.log(' successsss', resp);
+          client.end();
         }
       });
-      client.end();
       success(res.rows);
     }
   });

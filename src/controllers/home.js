@@ -3,8 +3,11 @@ const shortid = require('shortid');
 
 const searchForHome = (req, res) => {
   // so we have an id, we poll our database, and return reviews if it exists, otherwise nothing.
+  console.log('searching in here!');
   checkIfHomeHasReviews(req.body, (home) => {
-    if (home.rows > 0) {
+    console.log('homecount', home);
+    if (home.length > 0) {
+      console.log('bing bing bing');
       getReviews(req.body.id, (reviews) => {
         res.status(200).send({
           reviewCount: reviews.length,

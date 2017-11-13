@@ -12,7 +12,8 @@
 [ ] Make sure that receiving reviews actually works...
 [ ] Error handling on server.
 [x] Error handling on FE
-[ ] Change client to pool on all db calls.
+[x] Change client to pool on all db calls.
+[x] Surprise refactor all your db calls.
 [x] geolocation influenced address selection.
 [ ] Figuring out what styling looks like lel.
 [ ] STYLING 
@@ -28,8 +29,8 @@
 [x] Get location based on users current location.
 [x] Probably PropTypes in FE. it's getting a bit out of hand on some components. will be easy, can just take them from what we're passing in.
 [x] Loader on searching for address
-[ ] in postNewReview models/home, you need to do an additional query to Homes to say it exists, otherwise we'll never get any reviews down.
-[ ] if we have reviews for a house, how do you write another one?
+[x] in postNewReview models/home, you need to do an additional query to Homes to say it exists, otherwise we'll never get any reviews down.
+[x] if we have reviews for a house, how do you write another one?
 [ ] in newHome query, need to do a 'insert if not exists' kinda dealio.
 
 ### BUGS

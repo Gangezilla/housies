@@ -10,6 +10,8 @@ const session = require('express-session');
 const cors = require('cors');
 require('dotenv-safe').load();
 
+const { initPool } = require('./src/db');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -44,6 +46,7 @@ app.use(passport.session());
 logger.info('App has been initialised.');
 
 app.use('/', routes);
+initPool();
 
 app.listen(PORT, () => {
   logger.info(`Listening on port ${PORT}`);

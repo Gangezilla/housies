@@ -9,6 +9,8 @@ const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
 require('dotenv-safe').load();
+const cleanup = require('./config/cleanup').Cleanup(); // will call noOp
+
 
 const { initPool } = require('./src/db');
 

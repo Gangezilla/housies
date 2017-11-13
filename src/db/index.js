@@ -9,6 +9,11 @@ const initPool = () => {
   });
 };
 
+const closePool = () => {
+  logger.info('The pool is now closed, ladies and gentlemen.');
+  pool.end();
+};
+
 const query = (queryText, params, callback) => {
   const start = Date.now();
   return pool.query(queryText, params, (err, res) => {
@@ -21,4 +26,5 @@ const query = (queryText, params, callback) => {
 module.exports = {
   query,
   initPool,
+  closePool,
 };

@@ -9,7 +9,7 @@
 [x] user can select a house from a drop down google box
 [x] and see all reviews.
 [x] We'll handle retrieving reviews on the front end.
-[ ] Make sure that receiving reviews actually works...
+[x] Make sure that receiving reviews actually works...
 [ ] Error handling on server.
 [x] Error handling on FE
 [x] Change client to pool on all db calls.
@@ -24,6 +24,7 @@
 [x] Update reviews to replace displayName with memberId
 [x] You can only post a review if you're logged in.
 [ ] Make somewhere with more info on the project, an about page? or something like that.
+[x] pool.end somewhere/somehow. 
 [x] checking if user is logged in should be in app.js, not elsewhere.
 [x] Reviews
 [x] Get location based on users current location.

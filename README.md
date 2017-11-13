@@ -32,7 +32,8 @@
 [x] Loader on searching for address
 [x] in postNewReview models/home, you need to do an additional query to Homes to say it exists, otherwise we'll never get any reviews down.
 [x] if we have reviews for a house, how do you write another one?
-[ ] in newHome query, need to do a 'insert if not exists' kinda dealio.
+[x] in newHome query, need to do a 'insert if not exists' kinda dealio.
+[ ] do a big old sweep for weirdness on the front end cos theres heaps.
 
 ### BUGS
 [ ] say you want to write a review, then log into fb, the alertish box asking if you want to is still there. 

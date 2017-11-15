@@ -6,9 +6,7 @@ const getUserProfile = (req, res) => {
     if (profile[0]) {
       res.send(JSON.stringify(profile[0]));
     } else {
-      res.send(JSON.stringify({
-        error: "That user doesn't exist in our database.",
-      }));
+      res.sendStatus(404);
     }
   });
 };

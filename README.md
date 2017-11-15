@@ -10,7 +10,7 @@
 [x] and see all reviews.
 [x] We'll handle retrieving reviews on the front end.
 [x] Make sure that receiving reviews actually works...
-[ ] Error handling on server.
+[ ] Error handling on server. http://expressjs.com/en/guide/error-handling.html
 [x] Error handling on FE
 [x] Change client to pool on all db calls.
 [x] Surprise refactor all your db calls.
@@ -34,6 +34,8 @@
 [x] if we have reviews for a house, how do you write another one?
 [x] in newHome query, need to do a 'insert if not exists' kinda dealio.
 [ ] do a big old sweep for weirdness on the front end cos theres heaps.
+[x] in getting reviews, need to do a join with members on memberid, and get firstname and last name.
+[x] Review, get a timestamp when it gets created.
 
 ### BUGS
 [ ] say you want to write a review, then log into fb, the alertish box asking if you want to is still there. 

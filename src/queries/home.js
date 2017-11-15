@@ -6,7 +6,11 @@ const newReview = `
   VALUES ($1, $2, $3, $4, $5, $6, $7);
   `;
 
-const getAllReviews = 'SELECT * FROM Reviews WHERE homeid = $1;';
+const getAllReviews = `
+SELECT * FROM Reviews 
+  INNER JOIN Members
+  ON Reviews.memberId = Members.id
+WHERE homeid = $1;`;
 
 const newHome = `
     INSERT INTO Homes
@@ -21,3 +25,9 @@ module.exports = {
   getAllReviews,
   newHome,
 };
+
+// SELECT * FROM Reviews
+// housies::DATABASE-> INNER JOIN Members
+// housies::DATABASE->
+
+// housies::DATABASE-> ON Reviews.memberId = Members.id;

@@ -1,6 +1,8 @@
 FROM alpine:3.6
+# Using alpine linux
 
 ENV NODE_VERSION 9.2.0
+# Using node v 9.2.0
 
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
